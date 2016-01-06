@@ -1,0 +1,137 @@
+var TableAdvanced = function() {
+
+	var initTable = function(ajaxSource) {
+
+		/* Formating function for row details */
+		function fnFormatDetails(oTable, nTr) {
+			var aData = oTable.fnGetData(nTr);
+			var sOut = '<table>';
+			sOut += '<tr><td>概述:</td><td>' + aData.summary + '</td></tr>';
+			sOut += '<tr><td>点击数:</td><td>' + aData.clickNum + '</td>'
+					+'</tr>';
+			sOut += '<tr><td>情感极性:</td><td>' + aData.pole + '</td></tr>';
+			sOut += '<tr><td>特征词:</td><td>' + aData.tagwords + '</td></tr>';
+			sOut += '</table>';
+
+			return sOut;
+		}
+
+		/*
+		 * Insert a 'details' column to the table
+		 */
+//		var nCloneTh = document.createElement('th');
+//		var nCloneTd = document.createElement('td');
+//		nCloneTd.innerHTML = '<span class="row-details row-details-close"></span>';
+//
+//		$('#consensus-table thead tr').each(function() {
+//					this.insertBefore(nCloneTh, this.childNodes[0]);
+//				});
+//
+//		$('#consensus-table tbody tr').each(function() {
+//					this.insertBefore(nCloneTd.cloneNode(true),
+//							this.childNodes[0]);
+//				});
+
+		/*
+		 * Initialse DataTables, with no sorting on the 'details' column
+		 */
+		var oTable = $('#consensus-table').dataTable({
+					"aoColumnDefs" : [{
+								"bSortable" : false,
+								"aTargets" : [0]
+							}],
+					"aoColumns":[ 
+						{
+							"mData": null,
+							'sDefaultContent':'<span class="row-details row-details-close"></span>'
+						},
+						{"mData": "title"},
+						{"mData": "url"},
+						{"mData": "from"},
+						{"mData": "collectTime"},
+						{"mData": "summary","bVisible": false},
+						{"mData": "clickNum","bVisible": false},
+						{"mData": "pole","bVisible": false},
+						{"mData": "tagwords","bVisible": false}
+					],
+					"aaSorting" : [[1, 'asc']],
+					// change per page values here
+					"aLengthMenu" : [[5, 15, 20, -1], [5, 15, 20, "All"] 
+					],
+					// set the initial value
+					"iDisplayLength" : 15,
+					"bProcessing": true,
+				    "bServerSide": true,
+				    "sAjaxSource": ajaxSource,
+				    "fnServerData" : retrieveData
+				});
+				
+		function retrieveData(sSource, aoData, fnCallback) {
+			$.ajax({
+						"dataType" : 'json',
+						"contentType": 'application/json',               
+						"type" : "POST",
+						"url" : sSource,
+						"data" : JSON.stringify(aoData),
+						"success" : fnCallback
+					});
+		};
+		
+		jQuery('#consensus-table_wrapper .dataTables_filter input')
+				.addClass("m-wrap small"); // modify table search input
+		jQuery('#consensus-table_wrapper .dataTables_length select')
+				.addClass("m-wrap small"); // modify table per page dropdown
+		jQuery('#consensus-table_wrapper .dataTables_length select').select2(); // initialzie
+																			// select2
+																			// dropdown
+
+		/*
+		 * Add event listener for opening and closing details Note that the
+		 * indicator for showing which row is open is not controlled by
+		 * DataTables, rather it is done here
+		 */
+		$('#consensus-table').on('click', ' tbody td .row-details', function() {
+			var nTr = $(this).parents('tr')[0];
+			if (oTable.fnIsOpen(nTr)) {
+				/* This row is already open - close it */
+				$(this).addClass("row-details-close")
+						.removeClass("row-details-open");
+				oTable.fnClose(nTr);
+			} else {
+				/* Open this row */
+				$(this).addClass("row-details-open")
+						.removeClass("row-details-close");
+				oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+			}
+		});
+		
+		$("#treeData-list li").on('dblclick',function(event){
+          	event.stopPropagation();        	
+           	if ($(this).parent().hasClass("treelite_treerootnodebox")) {
+           		var thisNodeId = $(this).attr("node-id");
+           		var ajaxAddress = "show/" + thisNodeId;
+       			oTable.fnReloadAjax(ajaxAddress);
+           	} 
+           	else {
+           		var parentNodeId = $(this).parent().parent().attr("node-id");
+           		var thisNodeId = $(this).attr("node-id");
+           		var ajaxAddress = "show/" + parentNodeId + "/" + thisNodeId;
+       			oTable.fnReloadAjax(ajaxAddress);
+           	}
+		});
+	}
+	return {
+
+		// main function to initiate the module
+		init : function(ajaxSource) {
+
+			if (!jQuery().dataTable) {
+				return;
+			}
+
+			initTable(ajaxSource);
+		}
+
+	};
+
+}();

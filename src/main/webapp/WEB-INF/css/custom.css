@@ -1,0 +1,29 @@
+/* here you can put your own css to customize and override the theme */
+
+.bottom-10 {
+	margin-bottom : 10px;
+}
+
+.bottom-20 {
+	margin-bottom : 20px;
+}
+
+.bottom-30 {
+	margin-bottom : 30px;
+}
+
+#keyword_editable th{
+	border : 0px;
+	padding : 0px;
+}
+
+#ms-website_select {
+	width : 100%;
+}
+
+.tool-bottom {
+	height:auto !important;
+}
+.toolbar{
+	height:auto;
+}
