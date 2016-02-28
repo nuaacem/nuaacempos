@@ -66,17 +66,29 @@
 			<form class="form-inline" role="form">
 				<div class="form-group col-lg-6 col-md-6">
 					<label class="sr-only" for="weibo-url">weibo url</label>
-					<input class="form-control" id="weibo-url"	placeholder="多媒体微博url" type="text">
+					<input class="form-control" id="weibo-url" name="weiboUrl" placeholder="多媒体微博url" type="text">
 				</div>
 				<button id="btn-topic-mine" class="btn btn-default">主题挖掘</button>
 			</form>
-			
-			<div class="note note-success">
-				<p>
-					Duis mollis, est non commodo luctus, nisi erat mattis consectetur purus sit amet porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
-				</p>
+			<div class="col-lg-7 col-md-7" style="padding: 15px;">
+				<div class="portlet yellow box">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-cogs"></i>多媒体微博文本描述模型
+						</div>
+					</div>
+					<div class="portlet-body">		
+						<div class="note note-success">
+							<h1 class="block">内容标签 : <strong>等待标签生成</strong></h1>	
+							<p style="font-size: 25px;">等待特征词生成</p>
+						</div>			
+						<div class="note note-danger">
+							<h1 class="block">情感标签 : <strong>情感</strong></h1>
+							<p style="font-size: 25px;">等待特征词生成</p>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
 		<!-- END PAGE -->
 	</div>
 	<!-- END CONTAINER -->
@@ -87,6 +99,8 @@
 	<%@ include file="../../shared/importJs.jsp"%>
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
+	<script src="<c:url value='/plugins/jumble.min.js'/>" type="text/javascript" ></script>
+	
 	<!-- END PAGE LEVEL PLUGINS -->
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 	<script src="<c:url value='/js/app.js'/>" type="text/javascript"></script>
@@ -97,7 +111,10 @@
 			App.init(); // initlayout and core plugins
 			$("#btn-topic-mine").on("click", function(e) {
 				e.preventDefault();
-
+				$('.note-success strong').text("等待标签生成");
+				$('.note-success p').text("等待特征词生成");
+				$('.note-danger p').text("等待特征词生成");
+				
 				if (confirm("确认主题挖掘?") == false) {
 					return;
 				}
@@ -111,13 +128,20 @@
 						"weiboUrl" : weiboUrl
 					},
 					success : function(data) {
-						alert(data);
+						var jsonResult = eval("(" + data + ")");
+						$('.note-success strong').text(jsonResult.cTag);
+						$('.note-success p').text(jsonResult.cWords);
+						$('.note-danger p').text(jsonResult.eWords);
 					},
 					error : function(errorMSG) {
 						alert("fail!");
 					}
 				})
 			});
+			
+			$('p').jumble([190,180,110],[250,20,170],false,true,1000);
+			$('strong').jumble([125,240,125],[230,20,130],true,false,2000);
+			
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

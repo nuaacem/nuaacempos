@@ -16,8 +16,14 @@
   http://www.springframework.org/schema/mvc/spring-mvc.xsd" >
 	
 	<!-- 默认的注解映射的支持 -->  
-    <mvc:annotation-driven validator="validator" conversion-service="conversion-service" />
-    
+    <mvc:annotation-driven validator="validator" conversion-service="conversion-service" >
+	    <!-- 消息转换器 -->
+	    <mvc:message-converters register-defaults="true">
+	      <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	        <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+	      </bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass"  value="org.hibernate.validator.HibernateValidator"/>
         <!--不设置则默认为classpath下的ValidationMessages.properties -->

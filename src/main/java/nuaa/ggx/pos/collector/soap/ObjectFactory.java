@@ -24,7 +24,9 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _SayHello_QNAME = new QName("http://soap.collector.pos.ggx.nuaa/", "sayHello");
+	private final static QName _CollectComment_QNAME = new QName("http://soap.collector.pos.ggx.nuaa/", "collectComment");
+	private final static QName _CollectCommentResponse_QNAME = new QName("http://soap.collector.pos.ggx.nuaa/", "collectCommentResponse");
+	private final static QName _SayHello_QNAME = new QName("http://soap.collector.pos.ggx.nuaa/", "sayHello");
     private final static QName _SayHelloResponse_QNAME = new QName("http://soap.collector.pos.ggx.nuaa/", "sayHelloResponse");
 
     /**
@@ -34,7 +36,41 @@ public class ObjectFactory {
     public ObjectFactory() {
     }
 
-    /**
+	/**
+     * Create an instance of {@link CollectComment }
+     * 
+     */
+    public CollectComment createCollectComment() {
+        return new CollectComment();
+    }
+
+	/**
+     * Create an instance of {@link CollectCommentResponse }
+     * 
+     */
+    public CollectCommentResponse createCollectCommentResponse() {
+        return new CollectCommentResponse();
+    }
+
+	/**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CollectComment }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap.collector.pos.ggx.nuaa/", name = "collectComment")
+    public JAXBElement<CollectComment> createCollectComment(CollectComment value) {
+        return new JAXBElement<CollectComment>(_CollectComment_QNAME, CollectComment.class, null, value);
+    }
+
+	/**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CollectCommentResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap.collector.pos.ggx.nuaa/", name = "collectCommentResponse")
+    public JAXBElement<CollectCommentResponse> createCollectCommentResponse(CollectCommentResponse value) {
+        return new JAXBElement<CollectCommentResponse>(_CollectCommentResponse_QNAME, CollectCommentResponse.class, null, value);
+    }
+
+	/**
      * Create an instance of {@link SayHello }
      * 
      */
@@ -54,7 +90,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link SayHello }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://soap.collector.pos.ggx.nuaa/", name = "sayHello")
+//    @XmlElementDecl(namespace = "http://soap.collector.pos.ggx.nuaa/", name = "sayHello")
     public JAXBElement<SayHello> createSayHello(SayHello value) {
         return new JAXBElement<SayHello>(_SayHello_QNAME, SayHello.class, null, value);
     }
@@ -63,7 +99,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link SayHelloResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://soap.collector.pos.ggx.nuaa/", name = "sayHelloResponse")
+//    @XmlElementDecl(namespace = "http://soap.collector.pos.ggx.nuaa/", name = "sayHelloResponse")
     public JAXBElement<SayHelloResponse> createSayHelloResponse(SayHelloResponse value) {
         return new JAXBElement<SayHelloResponse>(_SayHelloResponse_QNAME, SayHelloResponse.class, null, value);
     }

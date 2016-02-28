@@ -116,4 +116,5 @@
     <!-- 声明式事务配置结束 -->
     
     <jaxws:client id="sayHello2" serviceClass="nuaa.ggx.pos.collector.soap.IWSTest" address="http://localhost:8080/datacollector/sayHello?wsdl"/> 
+    <jaxws:client id="collectComment" serviceClass="nuaa.ggx.pos.collector.soap.ICollectComment" address="http://localhost:8080/datacollector/collectComment?wsdl"/> 
 </beans>

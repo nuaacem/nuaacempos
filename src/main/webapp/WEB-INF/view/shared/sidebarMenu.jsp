@@ -42,7 +42,7 @@
 			<ul class="sub-menu">
 				<li><a href="/weiboFetch/index1.jsp">特征词条本体分析</a></li>
 				<li><a href="#">微词云分析</a></li>
-				<li><a href="#">多媒体主题挖掘</a></li>
+				<li><a href="/nuaacempos/deep/topic-mine/list">多媒体主题挖掘</a></li>
 			</ul></li>
 		<li class=""><a href="#"> <i class="icon-cloud-download"></i>
 				<span class="title">导出舆情报告</span>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://impl.soap.collector.pos.ggx.nuaa/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://soap.collector.pos.ggx.nuaa/" name="CollectCommentService" targetNamespace="http://impl.soap.collector.pos.ggx.nuaa/">
+	<wsdl:import location="http://localhost:8080/datacollector/collectComment?wsdl=ICollectComment.wsdl" namespace="http://soap.collector.pos.ggx.nuaa/"></wsdl:import>
+	<wsdl:binding name="CollectCommentServiceSoapBinding" type="ns1:ICollectComment">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="collectComment">
+			<soap:operation soapAction="" style="document"/>
+			<wsdl:input name="collectComment">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="collectCommentResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="CollectCommentService">
+		<wsdl:port binding="tns:CollectCommentServiceSoapBinding" name="CollectCommentPort">
+			<soap:address location="http://localhost:8080/datacollector/collectComment"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
