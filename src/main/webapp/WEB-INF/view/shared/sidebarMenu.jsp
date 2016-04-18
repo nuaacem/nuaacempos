@@ -31,7 +31,7 @@
 		<li class=""><a href="javascript:;"> <i class="icon-th-large"></i>
 				<span class="title">基本舆情分析</span><span class="arrow "></span></a>
 			<ul class="sub-menu">
-				<li><a href="/testyq/test/Discover.jsp">基本趋势分析</a></li>
+				<li><a href="/nuaacempos/bca/discover">基本趋势分析</a></li>
 				<li><a href="/testyq/test/Analysis.jsp">基本热度分析</a></li>
 				<li><a href="/testyq/test/Compare.jsp">情感趋势分析</a></li>
 				<li><a href="/testyq/test/Compare.jsp">情感热度分析</a></li>
